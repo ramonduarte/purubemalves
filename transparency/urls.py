@@ -13,4 +13,5 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^updatedb', website.views.updatedb, name='updatedb'),
+    url(r'^updatenewdb', website.views.updatenewdb, name='updatenewdb'),
 ]

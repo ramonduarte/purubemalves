@@ -10,7 +10,7 @@ class AlunoAdmin(admin.ModelAdmin):
 
 
 class VoluntarioAdmin(admin.ModelAdmin):
-    list_filter = ('equipe',)
+    list_filter = ('equipe', 'is_ativo')
     # list_display =
     # list_filter = ('equipe', 'curso_pretendido', 'chegada', )
 
@@ -37,7 +37,7 @@ class EquipeAdmin(admin.ModelAdmin):
 
 # Library classes
 class LivroAdmin(admin.ModelAdmin):
-    list_display = ['editora', 'isbn', 'is_disponivel', 'data_de_aquisicao', ]
+    list_display = ['editora', 'isbn', 'is_disponivel', 'ano_de_publicacao', 'data_de_aquisicao', ]
     list_filter = ('is_disponivel', )
 
 

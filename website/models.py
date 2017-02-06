@@ -105,7 +105,7 @@ class Aluno(Pessoa):
         return '%s' % (self.nome,)
 
     class Meta:
-        managed = True
+        managed = False
         ordering = ('nome',)
 
 
@@ -118,6 +118,7 @@ class Voluntario(Pessoa):
     graduacao_concluida = models.BooleanField(default=False)
     obs = models.CharField(max_length=superlongfield, blank=True, null=True)
     chegada = models.DateField(blank=True, null=True)
+    is_ativo = models.BooleanField(default=True)
 
     def __unicode__(self):
         return '%s (%s)' % (self.nome, self.equipe)
@@ -171,6 +172,7 @@ class Livro(models.Model):
     isbn = models.CharField(max_length=13, blank=True, null=True)
     editora = models.ForeignKey('Editora')
     autor = models.ManyToManyField('Autor')
+    ano_de_publicacao = models.CharField(max_length=4, blank=True, null=True)
     data_de_aquisicao = models.DateField(default=date.today)
     is_disponivel = models.BooleanField(default=True)
 
