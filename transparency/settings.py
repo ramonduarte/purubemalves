@@ -23,9 +23,14 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'qdw#44*1ohief*q_^4tl3x_ptwtgmrx@f#td(93c%3x5(d46+q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '138.197.114.82',
+    'localhost',
+    '127.0.0.1',
+    'purubemalves.com.br'
+]
 
 
 # Application definition

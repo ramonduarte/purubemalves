@@ -46,7 +46,7 @@ class Curso(models.Model):
         return '%s' % (self.nome,)
 
     class Meta:
-        managed = False
+        managed = True
         ordering = ('nome',)
 
 
@@ -55,7 +55,7 @@ class Pessoa(models.Model):
     TODO: Write a description for this model (2017/01/31)
     """
     nome = models.CharField(max_length=longfield)
-    cpf = models.IntegerField()
+    cpf = models.BigIntegerField()
     data_de_nascimento = models.DateField()
     endereco = models.CharField(max_length=longfield)
     complemento = models.CharField(max_length=shortfield, blank=True, null=True)
@@ -105,7 +105,7 @@ class Aluno(Pessoa):
         return '%s' % (self.nome,)
 
     class Meta:
-        managed = False
+        managed = True
         ordering = ('nome',)
 
 
@@ -124,7 +124,7 @@ class Voluntario(Pessoa):
         return '%s (%s)' % (self.nome, self.equipe)
 
     class Meta:
-        managed = False
+        managed = True
         ordering = ('nome',)
         verbose_name = 'Voluntário'
         verbose_name_plural = 'Voluntários'
@@ -143,7 +143,7 @@ class Equipe(models.Model):
         return '%s' % (self.nome,)
 
     class Meta:
-        managed = False
+        managed = True
         ordering = ('nome',)
 
 
@@ -160,7 +160,7 @@ class Ementa(models.Model):
         return 'Ementa da disciplina de %s para o ano letivo de %s' % (self.disciplina, self.ano_letivo)
 
     class Meta:
-        managed = False
+        managed = True
         ordering = ('disciplina',)
 
 
