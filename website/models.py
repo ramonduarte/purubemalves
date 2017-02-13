@@ -97,7 +97,7 @@ class Aluno(Pessoa):
         (u'Francês', u'Francês (obs: não possuímos professor no momento)'),
     ])
     # curso_pretendido = models.CharField(blank=True, null=True, max_length=30)
-    curso_pretendido = models.OneToOneField(Curso, blank=True, null=True)
+    curso_pretendido = models.ManyToManyField(Curso, blank=True)
     obs = models.CharField(max_length=200, blank=True, null=True)
     ano_letivo = models.IntegerField(default=2017)
 
