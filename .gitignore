@@ -2,3 +2,6 @@
 venv/
 .env/
 /website/migrations/
+/aluno.sql
+/dumps/
+/transparency/local_settings.py
