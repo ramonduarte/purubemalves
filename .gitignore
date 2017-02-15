@@ -5,3 +5,4 @@ venv/
 /aluno.sql
 /dumps/
 /transparency/local_settings.py
+.idea/

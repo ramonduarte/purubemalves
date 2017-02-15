@@ -120,8 +120,12 @@ class Voluntario(Pessoa):
     chegada = models.DateField(blank=True, null=True)
     is_ativo = models.BooleanField(default=True)
 
+    # def get_equipe(self):  # TODO: Fix MaxRecursionError (2017/02/15)
+    #     return [self.equipe.all()[i] for i in range(len(self.equipe.all()))]
+
     def __unicode__(self):
-        return '%s (%s)' % (self.nome, self.equipe)
+        return '%s' % (self.nome,)
+        # return '%s (%s)' % (self.nome, self.get_equipe) # TODO: Decomment when get_equipe() gets fixed
 
     class Meta:
         managed = True

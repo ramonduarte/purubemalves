@@ -17,17 +17,6 @@ from local_settings import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
-DEBUG = False
-ALLOWED_HOSTS = [
-    '138.197.114.82',
-    'localhost',
-    '127.0.0.1',
-    'purubemalves.com.br',
-    'www.purubemalves.com.br',
-]
-
 # Application definition
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -40,6 +29,7 @@ INSTALLED_APPS = (
     'localflavor',
     'website',
     'home',
+    'projeto_redacao',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,7 +50,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(PROJECT_ROOT, '../static/templates/'),
-            os.path.join(BASE_DIR, '../static/templates/'),
+            os.path.join(BASE_DIR, '/static/templates/'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
