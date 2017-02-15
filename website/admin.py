@@ -37,7 +37,7 @@ class EquipeAdmin(admin.ModelAdmin):
 
 # Library classes
 class LivroAdmin(admin.ModelAdmin):
-    list_display = ['editora', 'isbn', 'is_disponivel', 'ano_de_publicacao', 'data_de_aquisicao', ]
+    list_display = ['nome', 'editora', 'isbn', 'is_disponivel', 'ano_de_publicacao', 'data_de_aquisicao', ]
     list_filter = ('is_disponivel', )
 
 
