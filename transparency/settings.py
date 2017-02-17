@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'website',
     'home',
     'projeto_redacao',
+    'controle_de_frequencia',
 )
 
 MIDDLEWARE_CLASSES = (

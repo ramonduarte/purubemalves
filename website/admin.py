@@ -2,22 +2,21 @@ from django.contrib import admin
 from website import models
 
 
-# Register your models here.
 class AlunoAdmin(admin.ModelAdmin):
     list_filter = ('turma',)
-    # list_display =
+    list_display = ['get_nome', 'turma', 'bairro', 'tel']
     # list_filter = ('turma', 'bairro', 'cidade', 'lingua_estrangeira', 'curso_pretendido', 'ano_letivo', )
 
 
 class VoluntarioAdmin(admin.ModelAdmin):
     list_filter = ('equipe', 'is_ativo')
-    # list_display =
+    list_display = ['get_nome', 'tel']
     # list_filter = ('equipe', 'curso_pretendido', 'chegada', )
 
 
-class TelefoneAdmin(admin.ModelAdmin):
-    list_display = ['num', ]
-    # list_filter =
+# class TelefoneAdmin(admin.ModelAdmin):
+#     list_display = ['num', ]
+#     # list_filter =
 
 
 class CursoAdmin(admin.ModelAdmin):
@@ -63,7 +62,7 @@ class EmprestimoParaVoluntarioAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Aluno, AlunoAdmin)
 admin.site.register(models.Voluntario, VoluntarioAdmin)
-admin.site.register(models.Telefone, TelefoneAdmin)
+# admin.site.register(models.Telefone, TelefoneAdmin)
 admin.site.register(models.Curso, CursoAdmin)
 admin.site.register(models.Equipe, EquipeAdmin)
 admin.site.register(models.Ementa, EmentaAdmin)

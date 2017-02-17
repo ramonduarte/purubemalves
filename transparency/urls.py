@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
+import controle_de_frequencia
 import website.views
 import home.views
 
@@ -24,4 +25,6 @@ urlpatterns = [
     url(r'^curso$', home.views.curso, name='curso'),
     url(r'^resultados$', home.views.resultados, name='resultados'),
     url(r'$^', home.views.index, name='home'),
+
+    url(r'^frequencia/', include('controle_de_frequencia.urls')),
 ]
