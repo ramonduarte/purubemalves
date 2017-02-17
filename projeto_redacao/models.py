@@ -92,6 +92,8 @@ class Redacao(models.Model):
         default=avg_grade,
     )
 
+    obs = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Observações')
+
     def __unicode__(self):
         return 'Redação nº %i: %s (%s)' \
                % (

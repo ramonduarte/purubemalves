@@ -15,6 +15,7 @@ longfield = 100
 superlongfield = 200
 
 
+# TODO: Deprecate this model (2017/02/17)
 class Telefone(models.Model):
     """
     TODO: Write a description for this model (2017/01/31)
@@ -63,6 +64,7 @@ class Pessoa(models.Model):
     cep = models.IntegerField(verbose_name='CEP')
     cidade = models.CharField(max_length=shortfield)
     estado = models.CharField(max_length=2, choices=br_states.STATE_CHOICES)
+    tel = models.CharField(max_length=longfield, blank=True, null=True)
     telefone = models.ManyToManyField(Telefone)  # a person can have several phone numbers
     email = models.EmailField(blank=True, null=True)
     foto = models.CharField(max_length=longfield, blank=True, null=True)
@@ -79,6 +81,9 @@ class Pessoa(models.Model):
 
     def get_contatos(self):
         return 'Telefone: %s\nE-mail: %s\nFacebook: %s' % (self.telefone, self.email, self.facebook)
+
+    def get_nome(self):
+        return self.nome
 
     class Meta:
         managed = True
@@ -115,7 +120,7 @@ class Voluntario(Pessoa):
     TODO: Write a description for this model (2017/01/31)
     """
     equipe = models.ManyToManyField('Equipe')
-    graduacao = models.OneToOneField(Curso, blank=True, null=True, verbose_name='Graduação')
+    graduacao = models.ManyToManyField(Curso, verbose_name='Graduação')
     graduacao_concluida = models.BooleanField(default=False, verbose_name='Concluída')
     obs = models.CharField(max_length=superlongfield, blank=True, null=True, verbose_name='Observações')
     chegada = models.DateField(blank=True, null=True)

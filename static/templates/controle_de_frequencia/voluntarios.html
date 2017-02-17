@@ -1,0 +1,25 @@
+{% extends "controle_de_frequencia/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    <form action="/frequencia/post/" method="POST" class="post-form">{% csrf_token %}
+
+        <input type="hidden" id="voluntarios" name="voluntarios" value="{{ voluntarios }}">
+        <div class="row">
+            {% for voluntario in listof_voluntarios %}
+        <div class="col-lg-4 col-md-6">
+            <input class="checkbox-inline" type="checkbox" id="{{ voluntario.1 }}" name="{{ voluntario.1 }}">
+            <label class="form-label" for="{{ voluntario.1 }}">{{ voluntario.0 }} </label>
+        </div>
+            {% endfor %}
+        </div>
+
+        <nav class="navbar navbar-fixed-bottom" style="min-height: 20px">
+            <button type="submit" class="save btn btn-success">Enviar</button>
+            <button type="reset" class="save btn btn-danger">Limpar tudo</button>
+        </nav>
+    </form>
+
+{% endblock %}

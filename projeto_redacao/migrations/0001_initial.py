@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('website', '0009_auto_20170213_1731'),
+        
     ]
 
     operations = [
