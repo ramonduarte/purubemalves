@@ -1,4 +1,5 @@
-from django.conf.urls import include, url
+from django.conf import settings
+from django.conf.urls import include, url, static
 from django.contrib import admin
 import controle_de_frequencia
 import website.views
@@ -27,4 +28,4 @@ urlpatterns = [
     url(r'$^', home.views.index, name='home'),
 
     url(r'^frequencia/', include('controle_de_frequencia.urls')),
-]
+] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)

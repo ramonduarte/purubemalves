@@ -25,9 +25,4 @@ class Migration(migrations.Migration):
             name='tema',
             options={'managed': True, 'ordering': ('data',), 'verbose_name': 'Tema', 'verbose_name_plural': 'Temas'},
         ),
-        migrations.AddField(
-            model_name='tema',
-            name='data',
-            field=models.DateField(default=datetime.date.today),
-        ),
     ]
