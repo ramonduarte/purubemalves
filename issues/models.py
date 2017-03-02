@@ -39,8 +39,8 @@ class Issue(models.Model):
 
     class Meta:
         managed = True
-        verbose_name = u'Ticket'
-        verbose_name_plural = u'Tickets'
+        verbose_name = u'Protocolo'
+        verbose_name_plural = u'Protocolos'
 
 
 class Milestone(models.Model):
