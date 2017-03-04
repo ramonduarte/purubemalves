@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'projeto_redacao',
     'controle_de_frequencia',
     'issues',
+    'issues.templatetags',
 )
 
 MIDDLEWARE_CLASSES = (

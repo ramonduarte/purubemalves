@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from website import models as wm
 from django.db import models
 from django.contrib.postgres import fields
+import datetime
 
 
 class Issue(models.Model):
@@ -14,12 +15,12 @@ class Issue(models.Model):
                                  related_name=u'Responsavel', verbose_name=u'Responsável')
     is_closed = models.BooleanField(default=False, verbose_name=u'Encerrado')
     close_date = models.DateField(null=True, blank=True, verbose_name=u'Data de encerramento')
-    creation_date = models.DateField(null=True, blank=True, verbose_name=u'Data de criação')
-    milestone = models.ForeignKey('Milestone', verbose_name=u'Versão alvo')
+    creation_date = models.DateField(default=datetime.date.today, verbose_name=u'Data de criação')
+    milestone = models.ForeignKey('Milestone', blank=True, null=True, verbose_name=u'Versão alvo')
 
     # purubemalves attributes
-    submitter = models.ForeignKey(wm.Voluntario, related_name=u'Autor', verbose_name=u'Autor')
-    labels = fields.ArrayField(models.CharField(max_length=wm.shortfield, choices=(
+    submitter = models.ForeignKey(wm.Voluntario, blank=True, null=True, related_name=u'Autor', verbose_name=u'Autor')
+    labels = fields.ArrayField(models.CharField(max_length=wm.shortfield, blank=True, null=True, choices=(
         (u'Dúvida', u'question'),
         (u'Reclamação', u'complaint'),
         (u'Bug (falha imprevista)', u'bug'),

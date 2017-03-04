@@ -85,6 +85,10 @@ class Redacao(models.Model):
         verbose_name='Competência 4',
         blank=True, null=True,
     )
+    competencia5 = models.FloatField(
+        verbose_name='Competência 5',
+        blank=True, null=True,
+    )
 
     nota = models.FloatField(
         verbose_name='Nota final',

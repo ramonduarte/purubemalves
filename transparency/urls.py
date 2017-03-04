@@ -4,6 +4,7 @@ from django.contrib import admin
 import controle_de_frequencia
 import website.views
 import home.views
+import issues.views
 
 
 admin.autodiscover()  # DON'T TOUCH THIS LINE
@@ -28,4 +29,6 @@ urlpatterns = [
     url(r'$^', home.views.index, name='home'),
 
     url(r'^frequencia/', include('controle_de_frequencia.urls')),
+
+    url(r'^protocolo$', issues.views.protocolo, name='protocolo'),
 ] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)

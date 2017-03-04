@@ -1,0 +1,36 @@
+{% extends "home/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load dict_filters %}
+
+{% block content %}
+
+    {% if returning %}
+        <h3>Obrigado pelo feedback. Sua partipação é muito importante para mim. Seu protocolo será adicionado à lista abaixo assim que o sistema for atualizado.</h3>
+
+    {% endif %}
+
+{#    TODO: Finish this form (2017/03/02) #}
+{#    <form class="form-group" method="post" action="/protocolo">{%  csrf_token %}#}
+{#        <fieldset class="form-group">#}
+{##}
+{#        </fieldset>#}
+{#    </form>#}
+
+    {% for i in issues %}
+        <div class="col-sm-6">
+        <fieldset class="form-group">
+            <legend>#{{ i }} - {{ values|get_item:i|get_item:'title' }}</legend>
+            <p>Responsável: {{ values|get_item:i|get_item:'assignee' }}</p>
+            <p>Submetido em: {{ values|get_item:i|get_item:'creation_date' }}</p>
+            <p>Fechado: {{ values|get_item:i|get_item:'is_closed' }}</p>
+            <p>Atualização: {{ values|get_item:i|get_item:'milestone' }}</p>
+            <p>Rótulos: {{ values|get_item:i|get_item:'labels' }}</p>
+            <p>Descrição: {{ values|get_item:i|get_item:'body' }}</p>
+        </fieldset>
+        </div>
+
+    {% endfor %}
+
+
+{% endblock %}
