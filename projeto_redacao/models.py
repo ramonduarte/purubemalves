@@ -5,8 +5,8 @@ from website import models as wm
 import datetime
 
 
-def avg_grade():
-    return 500  # TODO: return average of competencias (2017/02/15)
+# def avg_grade():
+#     return 500  # TODO: return average of competencias (2017/02/15)
 
 
 class ProfessorDeRedacao(models.Model):
@@ -42,14 +42,16 @@ class Tema(models.Model):
 class Redacao(models.Model):
     id = models.AutoField(primary_key=True)
     corretor = models.ManyToManyField(ProfessorDeRedacao)
+    aluno = models.ForeignKey(wm.Aluno)
 
     def get_corretor(self):
         return [self.corretor.all()[i] for i in range(len(self.corretor.all()))]
 
-    aluno = models.ForeignKey(wm.Aluno)
-
     def get_aluno(self):
         return self.aluno.nome
+
+    def get_turma(self):
+        return self.aluno.turma
 
     tema = models.ForeignKey(Tema)
     is_devolvida = models.BooleanField(
@@ -93,7 +95,6 @@ class Redacao(models.Model):
     nota = models.FloatField(
         verbose_name='Nota final',
         blank=True, null=True,
-        default=avg_grade,
     )
 
     obs = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Observações')

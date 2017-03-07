@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('competencia2', models.FloatField(blank=True, null=True, verbose_name='Compet\xeancia 2')),
                 ('competencia3', models.FloatField(blank=True, null=True, verbose_name='Compet\xeancia 3')),
                 ('competencia4', models.FloatField(blank=True, null=True, verbose_name='Compet\xeancia 4')),
-                ('nota', models.FloatField(blank=True, default=projeto_redacao.models.avg_grade, null=True, verbose_name='Nota final')),
+                ('nota', models.FloatField(blank=True, null=True, verbose_name='Nota final')),
                 ('aluno', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='website.Aluno')),
                 ('corretor', models.ManyToManyField(to='projeto_redacao.ProfessorDeRedacao')),
             ],

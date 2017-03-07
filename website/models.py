@@ -63,9 +63,9 @@ class Pessoa(models.Model):
     bairro = models.CharField(max_length=shortfield)
     cep = models.IntegerField(verbose_name='CEP')
     cidade = models.CharField(max_length=shortfield)
-    estado = models.CharField(max_length=2, choices=br_states.STATE_CHOICES)
+    estado = models.CharField(max_length=2, default=u'RJ', choices=br_states.STATE_CHOICES)
     tel = models.CharField(max_length=longfield, blank=True, null=True)
-    telefone = models.ManyToManyField(Telefone)  # a person can have several phone numbers
+    telefone = models.ManyToManyField(Telefone, default=(1435,))  # a person can have several phone numbers
     email = models.EmailField(blank=True, null=True)
     foto = models.CharField(max_length=longfield, blank=True, null=True)
     facebook = models.CharField(max_length=longfield, blank=True, null=True)
@@ -95,14 +95,19 @@ class Aluno(Pessoa):
     """
     TODO: Write a description for this model (2017/01/31)
     """
-    turma = models.CharField(max_length=1, blank=True, null=True)
+    turma = models.CharField(max_length=1, blank=True, null=True, choices=(
+        (u'A', u'A'),
+        (u'B', u'B'),
+        (u'C', u'C'),
+        (u'D', u'D'),
+        (u'F', u'F'),
+    ), default=u'A')
     lingua_estrangeira = models.CharField(default=u'Espanhol', max_length=supershortfield,
                                           verbose_name='Língua Estrangeira', choices=[
                                               (u'Espanhol', u'Espanhol'),
                                               (u'Inglês', u'Inglês'),
                                               (u'Francês', u'Francês (obs: não possuímos professor no momento)'),
                                             ])
-    # curso_pretendido = models.CharField(blank=True, null=True, max_length=30)
     curso_pretendido = models.ManyToManyField(Curso, blank=True, verbose_name='Curso Pretendido')
     obs = models.CharField(max_length=200, blank=True, null=True, verbose_name='Observações')
     ano_letivo = models.IntegerField(default=2017, verbose_name='Ano letivo')
