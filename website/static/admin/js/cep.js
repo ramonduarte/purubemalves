@@ -27,7 +27,7 @@ var HttpClient = function() {
 };
 
 function getCEP(value) {
-    var a = new HttpClient().get('http://cep.republicavirtual.com.br/web_cep.php?cep='
+    var a = new HttpClient().get('//cep.republicavirtual.com.br/web_cep.php?cep='
     + value + '&formato=json', function (response) {
         var r = JSON.parse(response);
         if (r['resultado'] == '1') {

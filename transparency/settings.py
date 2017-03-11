@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 import os
 import dj_database_url
 from local_settings import *
+import dropbox
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -33,6 +34,8 @@ INSTALLED_APPS = (
     'controle_de_frequencia',
     'issues',
     'issues.templatetags',
+    'politicas_afirmativas',
+    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -128,3 +131,6 @@ STATICFILES_DIRS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# Dropbox
+dbx = dropbox.Dropbox(DROPBOX_OAUTH2_TOKEN)

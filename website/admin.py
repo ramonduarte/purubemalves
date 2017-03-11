@@ -49,7 +49,7 @@ class AlunoAdmin(admin.ModelAdmin):
 
 class VoluntarioAdmin(admin.ModelAdmin):
     list_filter = ('equipe', 'is_ativo')
-    list_display = ['get_nome', 'tel']
+    list_display = ['get_nome', 'tel', 'is_ativo']
     # list_filter = ('equipe', 'curso_pretendido', 'chegada', )
 
 

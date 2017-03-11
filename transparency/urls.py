@@ -30,5 +30,7 @@ urlpatterns = [
 
     url(r'^frequencia/', include('controle_de_frequencia.urls')),
 
+    url(r'^isencao/', include('politicas_afirmativas.urls')),
+
     url(r'^protocolo$', issues.views.protocolo, name='protocolo'),
 ] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)
