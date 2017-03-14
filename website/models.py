@@ -64,7 +64,7 @@ class Pessoa(models.Model):
     cep = models.IntegerField(verbose_name='CEP')
     cidade = models.CharField(max_length=shortfield)
     estado = models.CharField(max_length=2, default=u'RJ', choices=br_states.STATE_CHOICES)
-    tel = models.CharField(max_length=longfield, blank=True, null=True)
+    tel = models.CharField(max_length=longfield, blank=True, null=True, verbose_name=u'Telefone')
     telefone = models.ManyToManyField(Telefone, default=(1435,))  # a person can have several phone numbers
     email = models.EmailField(blank=True, null=True)
     foto = models.CharField(max_length=longfield, blank=True, null=True)
@@ -111,6 +111,7 @@ class Aluno(Pessoa):
     curso_pretendido = models.ManyToManyField(Curso, blank=True, verbose_name='Curso Pretendido')
     obs = models.CharField(max_length=200, blank=True, null=True, verbose_name='Observações')
     ano_letivo = models.IntegerField(default=2017, verbose_name='Ano letivo')
+    data_de_inscricao = models.DateField(default=date.today, blank=True, null=True, verbose_name=u'Data de Inscrição')
 
     def __unicode__(self):
         return '%s' % (self.nome,)
@@ -190,6 +191,13 @@ class Livro(models.Model):
     ano_de_publicacao = models.CharField(max_length=4, verbose_name='Ano de Publicação', blank=True, null=True)
     data_de_aquisicao = models.DateField(default=date.today, verbose_name='Data de Aquisição')
     is_disponivel = models.BooleanField(default=True, verbose_name='Disponível')
+    idioma = models.CharField(max_length=shortfield, default=u'Português', choices=(
+        (u'Espanhol', u'Espanhol'),
+        (u'Francês', u'Francês'),
+        (u'Inglês', u'Inglês'),
+        (u'Português', u'Português'),
+        (u'Outro', u'Outro'),
+    ))
 
     def lend(self):
         self.is_disponivel = False
@@ -201,7 +209,7 @@ class Livro(models.Model):
         return Editora.objects.get(pk=self.editora_id).nome
 
     def __unicode__(self):
-        return 'Livro: ' + self.nome
+        return self.nome
 
     class Meta:
         ordering = ['nome']
@@ -231,7 +239,7 @@ class Autor(models.Model):
     sobrenome = models.CharField(max_length=longfield)
 
     def __unicode__(self):
-        return 'Autor: ' + self.nome + ' ' + self.sobrenome
+        return '%s %s' % (self.nome, self.sobrenome)
 
     class Meta:
         get_latest_by = "name"
@@ -253,6 +261,7 @@ class Emprestimo(models.Model):
     emprestado_por = models.ForeignKey(Voluntario, null=True, blank=True, related_name='%(class)s_related')
     data_de_emprestimo = models.DateField(default=date.today, verbose_name='Empréstimo')
     data_de_devolucao = models.DateField(default=default_timedelta, verbose_name='Devolução')
+    devolvido = models.BooleanField(default=False, verbose_name=u'Devolvido')
 
     @classmethod
     def create(cls, livro):
@@ -260,8 +269,8 @@ class Emprestimo(models.Model):
         livro.lend()
         return emprestimo
 
-    def __unicode__(self):
-        return 'Empréstimo: ' + unicode(self.data_de_emprestimo)
+    # def __unicode__(self):
+    #     return 'Empréstimo: ' + unicode(self.data_de_emprestimo)
 
     class Meta:
         get_latest_by = "livro"
@@ -275,8 +284,11 @@ class EmprestimoParaAluno(Emprestimo):
     """
     aluno = models.ForeignKey(Aluno, null=True, blank=True)
 
+    def __unicode__(self):
+        return '%s -> %s' % (self.livro, self.aluno)
+
     class Meta:
-        verbose_name = "Empréstimo para Alunos"
+        verbose_name = "Empréstimo para Aluno"
         verbose_name_plural = "Empréstimos para Alunos"
 
 
@@ -286,6 +298,9 @@ class EmprestimoParaVoluntario(Emprestimo):
     """
     voluntario = models.ForeignKey(Voluntario, null=True, blank=True, verbose_name='Voluntário')
 
+    def __unicode__(self):
+        return '%s -> %s' % (self.livro, self.voluntario)
+
     class Meta:
-        verbose_name = "Empréstimo para Voluntários"
+        verbose_name = "Empréstimo para Voluntário"
         verbose_name_plural = "Empréstimos para Voluntários"

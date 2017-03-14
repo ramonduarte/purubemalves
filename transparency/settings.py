@@ -26,20 +26,42 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Social OAuth logins
+    'social_django',
+
+    # Forms usability improvements
     'widget_tweaks',
+
+    # CPF and CEP form fields
     'localflavor',
+
+    # Main app, handles internal management
     'website',
+
+    # Website at https://purubemalves.com.br
     'home',
+
+    # Applications for students performance tracking
     'projeto_redacao',
     'controle_de_frequencia',
+
+    # Feedback meta applications
     'issues',
     'issues.templatetags',
+
+    # Affirmative actions management
     'politicas_afirmativas',
+
+    #
+    'alunos',
+
+    # Static content distribution
     'storages',
 )
 
 MIDDLEWARE_CLASSES = (
-    # 'sslify.middleware.SSLifyMiddleware',
+    # 'sslify.middleware.SSLifyMiddleware',  # TODO: Decomment this line before pushing (2017/03/14)
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,6 +70,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    # Social OAuth login handler
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'transparency.urls'
@@ -69,10 +94,27 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Social OAuth login context processors
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+# Social & Internal logins
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'alunos/logout'
+LOGIN_REDIRECT_URL = '/alunos'
 
 WSGI_APPLICATION = 'transparency.wsgi.application'
 

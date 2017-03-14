@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from projeto_redacao import models as prm
 
-# Create your views here.
+
+def index(request):
+    return None

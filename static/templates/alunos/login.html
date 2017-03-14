@@ -1,0 +1,26 @@
+{% extends "alunos/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load dict_filters %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+      <form class='form-signin' method="post">
+    <h2 class="form-signin-heading">Login</h2>
+          {% csrf_token %}
+          {{ form.username|add_class:"form-control"|attr:"placeholder:E-mail"|attr:"autofocus" }}
+          {{ form.password|attr:"placeholder:Senha"|add_class:"form-control" }}
+{#          <p><label for="id_cpf">#}
+{#              CPF:#}
+{#              <input class="" type="text">#}
+{#          </label></p>#}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      </form>
+    <br>
+    <div class="form-signin">
+  <a class="btn btn-block btn-social btn-lg btn-facebook" href="{% url 'social:begin' 'facebook' %}">
+      <i class="fa fa-facebook"></i>Entre com o Facebook</a>
+    </div>
+{% endblock %}

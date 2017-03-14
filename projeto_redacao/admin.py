@@ -15,9 +15,9 @@ class TemaAdmin(admin.ModelAdmin):
 
 class RedacaoAdmin(admin.ModelAdmin):
     list_display = [
-        'id', 'get_aluno', 'get_turma', 'get_corretor', 'data_de_entrega', 'data_de_correcao', 'is_devolvida'
+        'get_aluno', 'get_turma', 'get_corretor', 'data_de_entrega', 'data_de_correcao', 'is_devolvida'
     ]
-    list_filter = ('corretor', 'aluno', 'is_devolvida')
+    list_filter = ('corretor', 'is_devolvida')
     actions = ['set_as_devolvida']
     actions_on_bottom = True
 

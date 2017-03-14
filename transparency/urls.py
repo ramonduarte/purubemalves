@@ -32,5 +32,9 @@ urlpatterns = [
 
     url(r'^isencao/', include('politicas_afirmativas.urls')),
 
+    url(r'^redacao/', include('projeto_redacao.urls')),
+
+    url(r'^alunos/', include('alunos.urls')),
+
     url(r'^protocolo$', issues.views.protocolo, name='protocolo'),
 ] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)

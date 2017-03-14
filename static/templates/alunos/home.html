@@ -1,0 +1,16 @@
+{% extends "alunos/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load dict_filters %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    <h2>Página Inicial</h2>
+    <p>Olá, {{ name }}!</p>
+
+    <p><a href="isencao.html">Ver Pedido de Isenção</a></p><br>
+    <p><a href="redacao.html">Ver Redações</a></p><br>
+{% endblock %}
