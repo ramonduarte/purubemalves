@@ -11,8 +11,8 @@ urlpatterns = [
     # url(r'^$', 'transparency.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'alunos/', views.alunos, name='alunos'),
-    url(r'voluntarios/', views.voluntarios, name='voluntarios'),
-    url(r'post/', views.post, name='post'),
-    url(r'$^', views.home, name='home'),
+    # url(r'alunos/', views.alunos, name='alunos'),
+    # url(r'voluntarios/', views.voluntarios, name='voluntarios'),
+    # url(r'post/', views.post, name='post'),
+    # url(r'$^', views.home, name='home'),
 ]

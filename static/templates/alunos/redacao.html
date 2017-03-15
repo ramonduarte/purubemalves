@@ -18,7 +18,8 @@
     <thead>
         <tr>
             <th class="col-md-4 col-xs-12">Tema</th>
-            <th class="col-md-3 col-xs-12">Corretores</th>
+{#            2017/03/15 - Luiz Henrique Davi de Lemos asked to remove this feature.  #}
+{#            <th class="col-md-3 col-xs-12">Corretores</th>#}
             <th class="col-md-2 col-xs-6">Entrega</th>
             <th class="col-md-2 col-xs-6">Correção</th>
             <th class="col-md-1 col-xs-6">Devolução</th>
@@ -35,7 +36,7 @@
     {% for r in redacoes %}
     <tr>
         <td class="col-md-4 col-xs-12">{{ r.tema }}</td>
-        <td class="col-md-3 col-xs-12">{% for c in r.get_corretor %} <p>{{ c }}</p>{% endfor %}</td>
+{#        <td class="col-md-3 col-xs-12">{% for c in r.get_corretor %} <p>{{ c }}</p>{% endfor %}</td>#}
         <td class="col-md-2 col-xs-6">{{ r.data_de_entrega }}</td>
         <td class="col-md-2 col-xs-6">{{ r.data_de_correcao }}</td>
         <td class="col-md-1 col-xs-6">{{ r.data_de_devolucao }}</td>

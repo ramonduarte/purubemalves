@@ -78,12 +78,15 @@ class Pessoa(models.Model):
 
     def get_endereco(self):
         return self.endereco + ', ' + self.complemento + ', ' + self.bairro + ', ' + self.cidade
+    get_endereco.short_description = 'Endereço'
 
     def get_contatos(self):
         return 'Telefone: %s\nE-mail: %s\nFacebook: %s' % (self.telefone, self.email, self.facebook)
+    get_contatos.short_description = 'Contatos'
 
     def get_nome(self):
         return self.nome
+    get_nome.short_description = 'Nome'
 
     class Meta:
         managed = True
@@ -207,6 +210,7 @@ class Livro(models.Model):
 
     def get_editora(self):
         return Editora.objects.get(pk=self.editora_id).nome
+    get_editora.short_description = 'Editora'
 
     def __unicode__(self):
         return self.nome

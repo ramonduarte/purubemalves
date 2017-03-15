@@ -4,18 +4,24 @@ from projeto_redacao import models
 
 
 class ProfessorDeRedacaoAdmin(admin.ModelAdmin):
-    list_display = ['get_nome']
+    list_display = ['get_nome', 'get_equipe']
     # list_filter = ('voluntario',)
 
 
 class TemaAdmin(admin.ModelAdmin):
-    list_display = ['titulo', ]
-    # list_filter = ('equipe', 'curso_pretendido', 'chegada', )
+    list_display = ['titulo', 'data']
+    list_filter = ('data', )
 
 
 class RedacaoAdmin(admin.ModelAdmin):
     list_display = [
-        'get_aluno', 'get_turma', 'get_corretor', 'data_de_entrega', 'data_de_correcao', 'is_devolvida'
+        'id',
+        'get_aluno',
+        'get_turma',
+        'get_corretor',
+        'data_de_entrega',
+        'data_de_correcao',
+        'is_devolvida'
     ]
     list_filter = ('corretor', 'is_devolvida')
     actions = ['set_as_devolvida']

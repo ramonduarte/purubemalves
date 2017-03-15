@@ -27,36 +27,36 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Social OAuth logins
+    # Social OAuth logins (2017/03/10)
     'social_django',
 
-    # Forms usability improvements
+    # Forms usability improvements (2017/03/10)  TODO: fix this date (2017/03/15)
     'widget_tweaks',
 
-    # CPF and CEP form fields
+    # CPF and CEP form fields (2017/03/10)  TODO: fix this date (2017/03/15)
     'localflavor',
 
-    # Main app, handles internal management
+    # Main app, handles internal management (2017/03/10)  TODO: fix this date (2017/03/15)
     'website',
 
-    # Website at https://purubemalves.com.br
+    # Website at https://purubemalves.com.br (2017/03/10)  TODO: fix this date (2017/03/15)
     'home',
 
-    # Applications for students performance tracking
+    # Applications for students performance tracking (2017/03/10)  TODO: fix this date (2017/03/15)
     'projeto_redacao',
     'controle_de_frequencia',
 
-    # Feedback meta applications
+    # Feedback meta applications (2017/03/10)  TODO: fix this date (2017/03/15)
     'issues',
     'issues.templatetags',
 
-    # Affirmative actions management
+    # Affirmative actions management (2017/03/10)
     'politicas_afirmativas',
 
-    #
+    # Students views  (2017/03/15)
     'alunos',
 
-    # Static content distribution
+    # Static content distribution (2017/03/10)
     'storages',
 )
 
@@ -86,9 +86,10 @@ TEMPLATES = [
         ],
         'APP_DIRS': True,
         'OPTIONS': {
-            # 'libraries': {
-            #     'dict_filters': 'website.templatetags.dict_filters',
-            # },
+            'libraries': {
+                # Templete tools for dictionaries (2017/03/15)
+                'dict_filters': 'issues.templatetags.dict_filters',
+            },
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -103,19 +104,22 @@ TEMPLATES = [
     },
 ]
 
-# Social & Internal logins
+# Social & Internal logins (2017/03/10)
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
+    # 'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Login information for the Alunos application (2017/03/15)
 LOGIN_URL = 'login'
 LOGOUT_URL = 'alunos/logout'
 LOGIN_REDIRECT_URL = '/alunos'
 
+
+# Django's main web application address
 WSGI_APPLICATION = 'transparency.wsgi.application'
 
 
@@ -163,6 +167,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 ENCRYPT_URL = '/.well-known/'
+# noinspection PyUnresolvedReferences
 ENCRYPT_ROOT = os.path.join(STATIC_ROOT, '.well-known')
 
 # Extra places for collectstatic to find static files.
@@ -174,5 +179,5 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-# Dropbox
+# Dropbox storage settings (2017/03/15)
 dbx = dropbox.Dropbox(DROPBOX_OAUTH2_TOKEN)

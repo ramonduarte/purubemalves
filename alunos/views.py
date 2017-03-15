@@ -8,7 +8,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    perfil = am.PerfilDeAluno.objects.get(user__id=request.user.id)
+    try:
+        perfil = am.PerfilDeAluno.objects.get(user__id=request.user.id)
+    except am.PerfilDeAluno.DoesNotExist:
+        return render(request, 'common/403.html')
+
     html_variables = {
         'name': perfil.aluno.get_nome()
     }
@@ -17,10 +21,13 @@ def home(request):
 
 @login_required
 def isencao(request):
-    perfil = am.PerfilDeAluno.objects.get(user__id=request.user.id)
+    try:
+        perfil = am.PerfilDeAluno.objects.get(user__id=request.user.id)
+    except am.PerfilDeAluno.DoesNotExist:
+        return render(request, 'common/403.html')
+
     pedido = pam.PedidoDeIsencaoUERJ.objects.get(aluno=perfil.aluno)
     form = paf.PedidoForm(instance=pedido)
-    # print form
     html_variables = {
         'name': perfil.aluno.get_nome(),
         'pedido': pedido,
@@ -31,7 +38,11 @@ def isencao(request):
 
 @login_required
 def redacao(request):
-    perfil = am.PerfilDeAluno.objects.get(user__id=request.user.id)
+    try:
+        perfil = am.PerfilDeAluno.objects.get(user__id=request.user.id)
+    except am.PerfilDeAluno.DoesNotExist:
+        return render(request, 'common/403.html')
+
     redacoes = prm.Redacao.objects.filter(aluno=perfil.aluno)
     html_variables = {
         'name': perfil.aluno.get_nome(),
