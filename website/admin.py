@@ -10,16 +10,16 @@ class AlunoAdmin(admin.ModelAdmin):
                 ('nome', 'cpf', 'data_de_nascimento'),
                 ('cep', 'endereco', 'complemento'),
                 ('bairro', 'cidade', 'estado'),
-                ('tel', 'telefone'),  # TODO: deprecate this line (2017/03/07)
-                # ('tel', 'email'),  # TODO: enable this line (2017/03/07)
-                'email',  # TODO: deprecate this line (2017/03/07)
+                # ('tel', 'telefone'),  # TODO: deprecate this line (2017/03/07)
+                ('tel', 'email'),  # TODO: enable this line (2017/03/07)
+                # 'email',  # TODO: deprecate this line (2017/03/07)
             ),
         }),
         ('Informações Letivas', {
             'fields': (
                 ('turma', 'ano_letivo'),
                 ('lingua_estrangeira', 'curso_pretendido'),
-                'obs',
+                ('obs', 'data_de_inscricao'),
             ),
         }),
     )
@@ -49,7 +49,7 @@ class AlunoAdmin(admin.ModelAdmin):
 
 class VoluntarioAdmin(admin.ModelAdmin):
     list_filter = ('equipe', 'is_ativo')
-    list_display = ['get_nome', 'tel']
+    list_display = ['get_nome', 'tel', 'is_ativo']
     # list_filter = ('equipe', 'curso_pretendido', 'chegada', )
 
 
@@ -90,13 +90,13 @@ class AutorAdmin(admin.ModelAdmin):
 
 
 class EmprestimoParaAlunoAdmin(admin.ModelAdmin):
-    list_display = ['data_de_emprestimo', 'data_de_devolucao', ]
-    list_filter = ('livro',)
+    list_display = ['aluno', 'livro', 'emprestado_por', 'data_de_emprestimo', 'data_de_devolucao', 'devolvido', ]
+    list_filter = ('devolvido', 'data_de_emprestimo', 'data_de_devolucao', )
 
 
 class EmprestimoParaVoluntarioAdmin(admin.ModelAdmin):
-    list_display = ['data_de_emprestimo', 'data_de_devolucao', ]
-    list_filter = ('livro',)
+    list_display = ['voluntario', 'livro', 'emprestado_por', 'data_de_emprestimo', 'data_de_devolucao', 'devolvido', ]
+    list_filter = ('devolvido', 'data_de_emprestimo', 'data_de_devolucao',)
 
 
 admin.site.register(models.Aluno, AlunoAdmin)
