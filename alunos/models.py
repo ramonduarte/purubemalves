@@ -48,5 +48,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    profile = PerfilDeAluno.objects.get(user=instance)
-    profile.save()
+    try:
+        profile = PerfilDeAluno.objects.get(user=instance)
+        profile.save()
+    except:
+        pass

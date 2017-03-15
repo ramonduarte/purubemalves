@@ -181,3 +181,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Dropbox storage settings (2017/03/15)
 dbx = dropbox.Dropbox(DROPBOX_OAUTH2_TOKEN)
+
+SECURE_SSL_REDIRECT = False
