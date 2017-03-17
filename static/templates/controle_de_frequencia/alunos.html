@@ -4,8 +4,9 @@
 
 {% block content %}
     <form action="/frequencia/post/" method="POST" class="post-form">{% csrf_token %}
-
         <input type="hidden" id="alunos" name="alunos" value="{{ alunos }}">
+        <fieldset>
+            <legend>Turma A</legend>
         <div class="row">
             {% for aluno in turmaA %}
         <div class="col-lg-4 col-md-6">
@@ -14,7 +15,11 @@
         </div>
             {% endfor %}
         </div>
+        </fieldset>
+        <br>
 
+        <fieldset>
+            <legend>Turma B</legend>
         <div class="row">
             {% for aluno in turmaB %}
         <div class="col-lg-4 col-md-6">
@@ -23,7 +28,11 @@
         </div>
             {% endfor %}
         </div>
+        </fieldset>
+        <br>
 
+        <fieldset>
+            <legend>Turma C</legend>
         <div class="row">
             {% for aluno in turmaC %}
         <div class="col-lg-4 col-md-6">
@@ -32,7 +41,11 @@
         </div>
             {% endfor %}
         </div>
+        </fieldset>
+        <br>
 
+        <fieldset>
+            <legend>Turma D</legend>
         <div class="row">
             {% for aluno in turmaD %}
         <div class="col-lg-4 col-md-6">
@@ -41,6 +54,7 @@
         </div>
             {% endfor %}
         </div>
+        </fieldset>
 
         <nav class="navbar navbar-fixed-bottom" style="min-height: 20px">
             <button type="submit" class="save btn btn-success">Enviar</button>

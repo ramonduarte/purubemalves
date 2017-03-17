@@ -46,6 +46,10 @@ class Curso(models.Model):
     def __unicode__(self):
         return '%s' % (self.nome,)
 
+    def get_count(self):
+        return Aluno.objects.filter(curso_pretendido=self.id).count()
+    get_count.short_description = u'Interessados'
+
     class Meta:
         managed = True
         ordering = ('nome',)
@@ -64,7 +68,8 @@ class Pessoa(models.Model):
     cep = models.IntegerField(verbose_name='CEP')
     cidade = models.CharField(max_length=shortfield)
     estado = models.CharField(max_length=2, default=u'RJ', choices=br_states.STATE_CHOICES)
-    tel = models.CharField(max_length=longfield, blank=True, null=True, verbose_name=u'Telefone')
+    tel = models.CharField(max_length=longfield, default=u'(21) ', blank=True, null=True, verbose_name=u'Telefone')
+    # TODO: deprecate this column (2017/03/17)
     telefone = models.ManyToManyField(Telefone, default=(1435,))  # a person can have several phone numbers
     email = models.EmailField(blank=True, null=True)
     foto = models.CharField(max_length=longfield, blank=True, null=True)
@@ -135,12 +140,12 @@ class Voluntario(Pessoa):
     chegada = models.DateField(blank=True, null=True)
     is_ativo = models.BooleanField(default=True, verbose_name='Ativo')
 
-    # def get_equipe(self):  # TODO: Fix MaxRecursionError (2017/02/15)
-    #     return [self.equipe.all()[i] for i in range(len(self.equipe.all()))]
+    def get_equipe(self):
+        return [i for i in self.equipe.all()]
+    get_equipe.short_description = u'Equipes'
 
     def __unicode__(self):
         return '%s' % (self.nome,)
-        # return '%s (%s)' % (self.nome, self.get_equipe) # TODO: Decomment when get_equipe() gets fixed
 
     class Meta:
         managed = True
@@ -161,6 +166,10 @@ class Equipe(models.Model):
     def __unicode__(self):
         return '%s' % (self.nome,)
 
+    def get_count(self):
+        return Voluntario.objects.filter(equipe=self.id).count()
+    get_count.short_description = u'Membros'
+
     class Meta:
         managed = True
         ordering = ('nome',)
@@ -176,7 +185,7 @@ class Ementa(models.Model):
     obs = models.CharField(max_length=superlongfield, blank=True, null=True, verbose_name='Observações')
 
     def __unicode__(self):
-        return 'Ementa da disciplina de %s para o ano letivo de %s' % (self.disciplina, self.ano_letivo)
+        return '%s (%s)' % (self.disciplina, self.ano_letivo)
 
     class Meta:
         managed = True
@@ -291,6 +300,10 @@ class EmprestimoParaAluno(Emprestimo):
     def __unicode__(self):
         return '%s -> %s' % (self.livro, self.aluno)
 
+    def get_turma(self):
+        return self.aluno.turma
+    get_turma.short_description = u'Turma'
+
     class Meta:
         verbose_name = "Empréstimo para Aluno"
         verbose_name_plural = "Empréstimos para Alunos"
@@ -304,6 +317,10 @@ class EmprestimoParaVoluntario(Emprestimo):
 
     def __unicode__(self):
         return '%s -> %s' % (self.livro, self.voluntario)
+
+    def get_equipe(self):
+        return self.voluntario.equipe
+    get_equipe.short_description = u'Equipe'
 
     class Meta:
         verbose_name = "Empréstimo para Voluntário"

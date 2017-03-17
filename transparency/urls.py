@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^updatedb', website.views.updatedb, name='updatedb'),
     # url(r'^updatenewdb', website.views.updatenewdb, name='updatenewdb'),
+    url(r'^getcep', website.views.getcep, name='getcep'),
 
     # url(r'^$', include('home.urls')),
     url(r'^index$', home.views.index, name='home'),

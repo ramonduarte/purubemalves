@@ -5,10 +5,6 @@ from website import models as wm
 import datetime
 
 
-# def avg_grade():
-#     return 500  # TODO: return average of competencias (2017/02/15)
-
-
 class ProfessorDeRedacao(models.Model):
     voluntario = models.ForeignKey(wm.Voluntario)
 
