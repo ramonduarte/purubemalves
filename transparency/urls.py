@@ -8,6 +8,8 @@ import issues.views
 
 
 admin.autodiscover()  # DON'T TOUCH THIS LINE
+admin.site.site_header = settings.ADMIN_SITE_HEADER
+admin.site.index_title = settings.ADMIN_INDEX_TITLE
 
 
 urlpatterns = [
