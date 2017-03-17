@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for tansparency project.
 
@@ -183,3 +184,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 dbx = dropbox.Dropbox(DROPBOX_OAUTH2_TOKEN)
 
 SECURE_SSL_REDIRECT = False
+ADMIN_SITE_HEADER = "Pré-Universitário Comunitário Rubem Alves"
+ADMIN_INDEX_TITLE = "Administração do Projeto"

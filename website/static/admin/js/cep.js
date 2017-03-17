@@ -27,8 +27,8 @@ var HttpClient = function() {
 };
 
 function getCEP(value) {
-    var a = new HttpClient().get('//cep.republicavirtual.com.br/web_cep.php?cep='
-    + value + '&formato=json', function (response) {
+    var a = new HttpClient().get('/getcep?cep='
+    + value, function (response) {
         var r = JSON.parse(response);
         if (r['resultado'] == '1') {
             document.getElementById('id_endereco').value = r['tipo_logradouro'] + ' ' +
@@ -38,7 +38,7 @@ function getCEP(value) {
             document.getElementById('id_estado').value = r['uf'];
         }
     });
-};
+}
 
 django.jQuery(document).ready(function( ) {
     django.jQuery('#id_cep').blur(function () {

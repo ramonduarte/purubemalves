@@ -10,9 +10,7 @@ class AlunoAdmin(admin.ModelAdmin):
                 ('nome', 'cpf', 'data_de_nascimento'),
                 ('cep', 'endereco', 'complemento'),
                 ('bairro', 'cidade', 'estado'),
-                # ('tel', 'telefone'),  # TODO: deprecate this line (2017/03/07)
-                ('tel', 'email'),  # TODO: enable this line (2017/03/07)
-                # 'email',  # TODO: deprecate this line (2017/03/07)
+                ('tel', 'email'),
             ),
         }),
         ('Informações Letivas', {
@@ -23,20 +21,9 @@ class AlunoAdmin(admin.ModelAdmin):
             ),
         }),
     )
-    # fields = (
-    #     ('nome', 'cpf', 'data_de_nascimento'),
-    #     ('endereco', 'complemento', 'cep'),
-    #     ('bairro', 'cidade', 'estado'),
-    #     ('tel', 'telefone'),  # TODO: deprecate this line (2017/03/07)
-    #     # ('tel', 'email'),   TODO: enable this line (2017/03/07)
-    #     'email',
-    #     ('turma', 'ano_letivo'),
-    #     'lingua_estrangeira',
-    #     'curso_pretendido',
-    #     'obs',
-    # )
+
+    list_display = ['get_nome', 'turma', 'bairro', 'cidade', 'tel', 'data_de_inscricao']
     list_filter = ('turma',)
-    list_display = ['get_nome', 'turma', 'bairro', 'cidade', 'tel']
 
     # list_filter = ('turma', 'bairro', 'cidade', 'lingua_estrangeira', 'curso_pretendido', 'ano_letivo', )
 
@@ -48,9 +35,33 @@ class AlunoAdmin(admin.ModelAdmin):
 
 
 class VoluntarioAdmin(admin.ModelAdmin):
-    list_filter = ('equipe', 'is_ativo')
-    list_display = ['get_nome', 'tel', 'is_ativo']
-    # list_filter = ('equipe', 'curso_pretendido', 'chegada', )
+    list_display = ['get_nome', 'get_equipe', 'tel', 'is_ativo', 'chegada', ]
+    list_filter = ('equipe', 'is_ativo', )
+
+    fieldsets = (
+        ('Informações Pessoais', {
+            'fields': (
+                ('nome', 'cpf', 'data_de_nascimento'),
+                ('cep', 'endereco', 'complemento'),
+                ('bairro', 'cidade', 'estado'),
+                ('tel', 'email'),
+            ),
+        }),
+        ('Informações Profissionais', {
+            'fields': (
+                ('equipe', ),
+                ('graduacao', 'graduacao_concluida', ),
+                ('is_ativo', ),
+                ('obs', 'chegada'),
+            ),
+        }),
+    )
+
+    class Media:
+        js = (
+            # 'django.jQuery',
+            'admin/js/cep.js',
+        )
 
 
 # class TelefoneAdmin(admin.ModelAdmin):
@@ -59,8 +70,18 @@ class VoluntarioAdmin(admin.ModelAdmin):
 
 
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'uerj_peso_1', 'uerj_peso_2', ]
-    list_filter = ('uerj_peso_1', 'uerj_peso_2',)
+    list_display = [
+        'nome',
+        'get_count',
+        'uerj_peso_2',
+        'uerj_peso_1',
+        'ufrj_mat_peso',
+        'ufrj_lin_peso',
+        'ufrj_nat_peso',
+        'ufrj_hum_peso',
+        'ufrj_red_peso',
+    ]
+    list_filter = ('uerj_peso_2', 'uerj_peso_1', )
 
 
 class EmentaAdmin(admin.ModelAdmin):
@@ -69,14 +90,14 @@ class EmentaAdmin(admin.ModelAdmin):
 
 
 class EquipeAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'is_gestao', 'gerente', ]
+    list_display = ['nome', 'get_count', 'is_gestao', 'gerente', ]
     list_filter = ('is_gestao',)
 
 
 # Library classes
 class LivroAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'editora', 'isbn', 'is_disponivel', 'ano_de_publicacao', 'data_de_aquisicao', ]
-    list_filter = ('is_disponivel',)
+    list_display = ['nome', 'editora', 'isbn', 'is_disponivel', 'idioma', 'ano_de_publicacao', 'data_de_aquisicao', ]
+    list_filter = ('is_disponivel', 'idioma')
 
 
 class EditoraAdmin(admin.ModelAdmin):
@@ -90,8 +111,8 @@ class AutorAdmin(admin.ModelAdmin):
 
 
 class EmprestimoParaAlunoAdmin(admin.ModelAdmin):
-    list_display = ['aluno', 'livro', 'emprestado_por', 'data_de_emprestimo', 'data_de_devolucao', 'devolvido', ]
-    list_filter = ('devolvido', 'data_de_emprestimo', 'data_de_devolucao', )
+    list_display = ['aluno', 'get_turma', 'livro', 'emprestado_por', 'data_de_emprestimo', 'data_de_devolucao', 'devolvido', ]
+    list_filter = ('devolvido', 'aluno__turma', 'data_de_emprestimo', 'data_de_devolucao', )
 
 
 class EmprestimoParaVoluntarioAdmin(admin.ModelAdmin):
@@ -106,7 +127,7 @@ admin.site.register(models.Curso, CursoAdmin)
 admin.site.register(models.Equipe, EquipeAdmin)
 admin.site.register(models.Ementa, EmentaAdmin)
 
-# Library adjango-admin registering
+# Library django-admin registering
 admin.site.register(models.Livro, LivroAdmin)
 admin.site.register(models.Editora, EditoraAdmin)
 admin.site.register(models.Autor, AutorAdmin)

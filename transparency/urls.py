@@ -8,6 +8,8 @@ import issues.views
 
 
 admin.autodiscover()  # DON'T TOUCH THIS LINE
+admin.site.site_header = settings.ADMIN_SITE_HEADER
+admin.site.index_title = settings.ADMIN_INDEX_TITLE
 
 
 urlpatterns = [
@@ -18,6 +20,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^updatedb', website.views.updatedb, name='updatedb'),
     # url(r'^updatenewdb', website.views.updatenewdb, name='updatenewdb'),
+    url(r'^getcep', website.views.getcep, name='getcep'),
 
     # url(r'^$', include('home.urls')),
     url(r'^index$', home.views.index, name='home'),
