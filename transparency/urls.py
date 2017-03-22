@@ -39,5 +39,7 @@ urlpatterns = [
 
     url(r'^alunos/', include('alunos.urls')),
 
+    url(r'^reports/', include('reports.urls')),
+
     url(r'^protocolo$', issues.views.protocolo, name='protocolo'),
 ] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)

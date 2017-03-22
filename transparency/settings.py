@@ -57,6 +57,9 @@ INSTALLED_APPS = (
     # Students views  (2017/03/15)
     'alunos',
 
+    # Reports views  (2017/03/21)
+    'reports',
+
     # Static content distribution (2017/03/10)
     'storages',
 )
