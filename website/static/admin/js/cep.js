@@ -40,8 +40,17 @@ function getCEP(value) {
     });
 }
 
+
+function removeNaN() {
+    this.value=this.value.replace(/([^0-9])+/g, '');
+}
+
 django.jQuery(document).ready(function( ) {
     django.jQuery('#id_cep').blur(function () {
+        removeNaN();
         getCEP(django.jQuery(this).val());
+    });
+    django.jQuery('#id_cpf').blur(function () {
+        removeNaN();
     });
 });

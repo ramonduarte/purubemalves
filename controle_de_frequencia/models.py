@@ -25,6 +25,11 @@ class ListaDePresencaDeVoluntarios(ListaDePresenca):
 
     def get_voluntario(self):
         return [self.voluntario.all()[i] for i in range(len(self.voluntario.all()))]
+    get_voluntario.short_description = u'Voluntários'
+
+    def get_count(self):
+        return len(self.voluntario.all())
+    get_count.short_description = u'Presentes'
 
     class Meta:
         managed = True
@@ -38,6 +43,11 @@ class ListaDePresencaDeAlunos(ListaDePresenca):
 
     def get_aluno(self):
         return [self.aluno.all()[i] for i in range(len(self.aluno.all()))]
+    get_aluno.short_description = u'Alunos'
+
+    def get_count(self):
+        return len(self.aluno.all())
+    get_count.short_description = u'Presentes'
 
     class Meta:
         managed = True

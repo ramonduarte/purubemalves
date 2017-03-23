@@ -4,6 +4,9 @@ from website import models
 
 
 class AlunoAdmin(admin.ModelAdmin):
+    list_display = ['get_nome', 'turma', 'bairro', 'cidade', 'tel', 'data_de_inscricao']
+    list_filter = ('turma',)
+    search_fields = ('nome',)
     fieldsets = (
         ('Informações Pessoais', {
             'fields': (
@@ -22,11 +25,6 @@ class AlunoAdmin(admin.ModelAdmin):
         }),
     )
 
-    list_display = ['get_nome', 'turma', 'bairro', 'cidade', 'tel', 'data_de_inscricao']
-    list_filter = ('turma',)
-
-    # list_filter = ('turma', 'bairro', 'cidade', 'lingua_estrangeira', 'curso_pretendido', 'ano_letivo', )
-
     class Media:
         js = (
             # 'django.jQuery',
@@ -37,6 +35,7 @@ class AlunoAdmin(admin.ModelAdmin):
 class VoluntarioAdmin(admin.ModelAdmin):
     list_display = ['get_nome', 'get_equipe', 'tel', 'is_ativo', 'chegada', ]
     list_filter = ('equipe', 'is_ativo', )
+    search_fields = ('nome',)
 
     fieldsets = (
         ('Informações Pessoais', {
@@ -62,11 +61,6 @@ class VoluntarioAdmin(admin.ModelAdmin):
             # 'django.jQuery',
             'admin/js/cep.js',
         )
-
-
-# class TelefoneAdmin(admin.ModelAdmin):
-#     list_display = ['num', ]
-#     # list_filter =
 
 
 class CursoAdmin(admin.ModelAdmin):
@@ -111,18 +105,48 @@ class AutorAdmin(admin.ModelAdmin):
 
 
 class EmprestimoParaAlunoAdmin(admin.ModelAdmin):
-    list_display = ['aluno', 'get_turma', 'livro', 'emprestado_por', 'data_de_emprestimo', 'data_de_devolucao', 'devolvido', ]
+    list_display = [
+        'aluno',
+        'get_turma',
+        'livro',
+        'emprestado_por',
+        'data_de_emprestimo',
+        'data_de_devolucao',
+        'devolvido',
+    ]
     list_filter = ('devolvido', 'aluno__turma', 'data_de_emprestimo', 'data_de_devolucao', )
+    actions = ['set_as_devolvido']
+    actions_on_bottom = True
+
+    def set_as_devolvido(self, request, queryset):
+        rows_updated = queryset.update(devolvido=True)
+        if rows_updated == 1:
+            message_bit = "O livro em questão foi marcado como devolvido."
+        else:
+            message_bit = "%s livros foram marcados como devolvidos." % rows_updated
+        self.message_user(request, message_bit)
+    set_as_devolvido.short_description = "Marcar livros selecionados como devolvidos"
 
 
 class EmprestimoParaVoluntarioAdmin(admin.ModelAdmin):
     list_display = ['voluntario', 'livro', 'emprestado_por', 'data_de_emprestimo', 'data_de_devolucao', 'devolvido', ]
     list_filter = ('devolvido', 'data_de_emprestimo', 'data_de_devolucao',)
+    actions = ['set_as_devolvido']
+    actions_on_bottom = True
+
+    def set_as_devolvido(self, request, queryset):
+        rows_updated = queryset.update(devolvido=True)
+        if rows_updated == 1:
+            message_bit = "O livro em questão foi marcado como devolvido."
+        else:
+            message_bit = "%s livros foram marcados como devolvidos." % rows_updated
+        self.message_user(request, message_bit)
+
+    set_as_devolvido.short_description = "Marcar livros selecionados como devolvidos"
 
 
 admin.site.register(models.Aluno, AlunoAdmin)
 admin.site.register(models.Voluntario, VoluntarioAdmin)
-# admin.site.register(models.Telefone, TelefoneAdmin)
 admin.site.register(models.Curso, CursoAdmin)
 admin.site.register(models.Equipe, EquipeAdmin)
 admin.site.register(models.Ementa, EmentaAdmin)
