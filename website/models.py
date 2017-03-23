@@ -197,7 +197,7 @@ class Livro(models.Model):
     TODO: Write a description for this model (2017/01/31)
     """
     nome = models.CharField(max_length=superlongfield)
-    isbn = models.CharField(max_length=13, verbose_name='ISBN', blank=True, null=True)
+    isbn = models.CharField(max_length=13, verbose_name='ISBN', default=u'97885', blank=True, null=True)
     editora = models.ForeignKey('Editora')
     autor = models.ManyToManyField('Autor')
     ano_de_publicacao = models.CharField(max_length=4, verbose_name='Ano de Publicação', blank=True, null=True)

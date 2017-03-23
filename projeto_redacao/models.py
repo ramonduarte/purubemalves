@@ -11,10 +11,12 @@ class ProfessorDeRedacao(models.Model):
     def get_nome(self):
         return self.voluntario.nome
         # return wm.Voluntario.objects.get(pk=self.voluntario_id).nome
+
     get_nome.short_description = 'Nome'
 
     def get_equipe(self):
         return [self.voluntario.equipe.all()[i] for i in range(len(self.voluntario.equipe.all()))]
+
     get_equipe.short_description = 'Equipe'
 
     def __unicode__(self):
@@ -61,7 +63,7 @@ class Redacao(models.Model):
     tema = models.ForeignKey(Tema)
     is_devolvida = models.BooleanField(
         default=False,
-        verbose_name='Foi devolvida?'
+        verbose_name='Devolvida'
     )
     data_de_entrega = models.DateField(
         verbose_name='Data de entrega',
@@ -116,13 +118,11 @@ class Redacao(models.Model):
     obs = models.TextField(max_length=2000, blank=True, null=True, verbose_name='Observações')
 
     def __unicode__(self):
-        return 'Redação nº %i: %s (%s - turma %s)' \
-               % (
-                   self.id,
-                   self.tema,
-                   self.aluno,
-                   self.get_turma(),
-               )
+        return '%s (turma %s): %s' % (
+            self.aluno,
+            self.aluno.turma,
+            self.tema,
+        )
 
     class Meta:
         managed = True

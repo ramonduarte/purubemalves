@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'voluntarios/portaria', views.voluntarios_portaria, name='reports/presenca'),
     # url(r'redacao', views.redacao, name='redacao'),
     # url(r'^alunos/login/$', views.redirect_to_home, name='redirect_to_home'),
-    # url(r'$^', views.home, name='home'),
+    url(r'$^', views.home, name='reports/home'),
 
 ]
 

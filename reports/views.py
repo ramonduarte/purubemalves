@@ -33,7 +33,8 @@ def startnewpage(data, style, canv, textobject):
 
 
 def home(request):
-    return None
+
+    return render(request, 'reports/index.html')
 
 
 def alunos_telefones(request):
