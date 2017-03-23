@@ -3,7 +3,6 @@ venv/
 .env/
 /aluno.sql
 /dumps/
-/transparency/local_settings.py
 .idea/
 migrations
 /transparency/staticfiles/
