@@ -8,6 +8,7 @@ django-widget-tweaks==1.4.1
 dropbox==7.2.1
 ecdsa==0.13
 future==0.16.0
+gunicorn==19.0.0
 oauthlib==2.0.1
 olefile==0.44
 Pillow==4.0.0
