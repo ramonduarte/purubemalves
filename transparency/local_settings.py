@@ -7,6 +7,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'purubemalves.com.br',
     'www.purubemalves.com.br',
+    'pura-admin.herokuapp.com',
+    'www.pura-admin.herokuapp.com',
 ]
 
 # SECURITY WARNING: keep the secret key used in production secret!
