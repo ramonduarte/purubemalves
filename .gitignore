@@ -5,5 +5,4 @@ venv/
 /dumps/
 .idea/
 migrations
-/transparency/staticfiles/
 *.pyc
