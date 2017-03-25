@@ -8,9 +8,12 @@ from django.http import HttpResponse
 from website import models as wm
 
 
-def startpdffile(filename="somefilename.pdf"):
+def startpdffile(filename="somefilename.pdf", attachment=False):
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'filename="' + filename + '"'
+    if attachment:
+        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+    else:
+        response['Content-Disposition'] = 'filename="' + filename + '"'
     return response
 
 
@@ -44,9 +47,12 @@ def alunos_telefones(request):
     :return:
     """
     if request.method == 'GET':
-        response = startpdffile(filename="somefilename.pdf")
-        alunos_per_page = 38
 
+        alunos_per_page = 38
+        try:
+            response = startpdffile(filename="somefilename.pdf", attachment=request.GET[u'attach'])
+        except MultiValueDictKeyError:
+            response = startpdffile(filename="somefilename.pdf")
         p = canvas.Canvas(response, pagesize='A4', pageCompression=0)
         textobject = starttextobject(p)
         textobject.textLine('ALUNOS')
@@ -90,7 +96,10 @@ def alunos_portaria(request):
     :return:
     """
     if request.method == 'GET':
-        response = startpdffile(filename="somefilename.pdf")
+        try:
+            response = startpdffile(filename="somefilename.pdf", attachment=request.GET[u'attach'])
+        except MultiValueDictKeyError:
+            response = startpdffile(filename="somefilename.pdf")
         alunos_per_page = 38
 
         p = canvas.Canvas(response, pagesize='A4', pageCompression=0)
@@ -137,7 +146,10 @@ def alunos_presenca(request):
     :return:
     """
     if request.method == 'GET':
-        response = startpdffile(filename="somefilename.pdf")
+        try:
+            response = startpdffile(filename="somefilename.pdf", attachment=request.GET[u'attach'])
+        except MultiValueDictKeyError:
+            response = startpdffile(filename="somefilename.pdf")
         alunos_per_page = 38
 
         p = canvas.Canvas(response, pagesize='A4', pageCompression=0)
@@ -188,7 +200,10 @@ def voluntarios_portaria(request):
     :return:
     """
     if request.method == 'GET':
-        response = startpdffile(filename="somefilename.pdf")
+        try:
+            response = startpdffile(filename="somefilename.pdf", attachment=request.GET[u'attach'])
+        except MultiValueDictKeyError:
+            response = startpdffile(filename="somefilename.pdf")
         vols_per_page = 38
 
         p = canvas.Canvas(response, pagesize='A4', pageCompression=0)

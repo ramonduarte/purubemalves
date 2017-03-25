@@ -16,6 +16,7 @@
     <!-- Bootstrap -->
     <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'alunos/css/font-awesome.css' %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -74,15 +75,26 @@
     <h1>Relatórios disponíveis</h1>
 
     <h3>Alunos</h3>
-    <a class="btn btn-primary" href="/reports/alunos/telefones" role="button">Telefones</a>
-    <a class="btn btn-primary" href="/reports/alunos/portaria" role="button">Portaria</a>
-    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=A" role="button">Turma A</a>
-    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=B" role="button">Turma B</a>
-    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=C" role="button">Turma C</a>
-    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=D" role="button">Turma D</a>
+    <div class="row">
+    <a class="btn btn-primary" href="/reports/alunos/telefones" role="button">Telefones</a><a class="btn btn-success" href="/reports/alunos/telefones?attach=True" role="button"><i class="fa fa-download" style="align-content: center"></i></a>
+
+    <a class="btn btn-primary" href="/reports/alunos/portaria" role="button">Portaria</a><a class="btn btn-success" href="/reports/alunos/portaria?attach=True" role="button"><i class="fa fa-download" style="align-content: center"></i></a>
+
+    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=A" role="button">Turma A</a><a class="btn btn-success" href="/reports/alunos/presenca?turma=A&attach=True" role="button"><i class="fa fa-download" style="align-content: center"></i></a>
+
+    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=B" role="button">Turma B</a><a class="btn btn-success" href="/reports/alunos/presenca?turma=B&attach=True" role="button"><i class="fa fa-download" style="align-content: center"></i></a>
+    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=C" role="button">Turma C</a><a class="btn btn-success" href="/reports/alunos/presenca?turma=C&attach=True" role="button"><i class="fa fa-download" style="align-content: center"></i></a>
+
+    <a class="btn btn-primary" href="/reports/alunos/presenca?turma=D" role="button">Turma D</a><a class="btn btn-success" href="/reports/alunos/presenca?turma=D&attach=True" role="button"><i class="fa fa-download" style="align-content: center"></i></a>
+
+    </div>
 
     <h3>Voluntários</h3>
-    <a class="btn btn-primary" href="/reports/voluntarios/portaria" role="button">Portaria</a>
+    <div class="row">
+    <a class="btn btn-primary" href="/reports/voluntarios/portaria" role="button">Portaria</a><a class="btn btn-success" href="/reports/voluntarios/portaria?attach=True" role="button">
+        <i class="fa fa-download" style="align-content: center"></i>
+    </a>
+    </div>
         {% block content %}{% endblock %}
 
     </div>

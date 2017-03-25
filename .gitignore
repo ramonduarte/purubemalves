@@ -5,6 +5,5 @@ venv/
 /dumps/
 /transparency/local_settings.py
 .idea/
-migrations
 /transparency/staticfiles/
 *.pyc
