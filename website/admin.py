@@ -94,14 +94,14 @@ class LivroAdmin(admin.ModelAdmin):
     list_filter = ('is_disponivel', 'idioma')
 
 
-class EditoraAdmin(admin.ModelAdmin):
-    list_display = ['nome']
-    list_filter = ('nome',)
+# class EditoraAdmin(admin.ModelAdmin):
+#     list_display = ['nome']
+#     list_filter = ('nome',)
 
-
-class AutorAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'sobrenome', ]
-    # list_filter = ('sobrenome', )
+#
+# class AutorAdmin(admin.ModelAdmin):
+#     list_display = ['nome', 'sobrenome', ]
+#     # list_filter = ('sobrenome', )
 
 
 class EmprestimoParaAlunoAdmin(admin.ModelAdmin):
@@ -153,7 +153,7 @@ admin.site.register(models.Ementa, EmentaAdmin)
 
 # Library django-admin registering
 admin.site.register(models.Livro, LivroAdmin)
-admin.site.register(models.Editora, EditoraAdmin)
-admin.site.register(models.Autor, AutorAdmin)
+# admin.site.register(models.Editora, EditoraAdmin)
+# admin.site.register(models.Autor, AutorAdmin)
 admin.site.register(models.EmprestimoParaAluno, EmprestimoParaAlunoAdmin)
 admin.site.register(models.EmprestimoParaVoluntario, EmprestimoParaVoluntarioAdmin)

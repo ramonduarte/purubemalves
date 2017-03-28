@@ -68,7 +68,7 @@ class Pessoa(models.Model):
     cep = models.IntegerField(verbose_name='CEP')
     cidade = models.CharField(max_length=shortfield)
     estado = models.CharField(max_length=2, default=u'RJ', choices=br_states.STATE_CHOICES)
-    tel = models.CharField(max_length=longfield, default=u'(21) ', blank=True, null=True, verbose_name=u'Telefone')
+    tel = models.CharField(max_length=longfield, default=u'(21) ', verbose_name=u'Telefone')
     # TODO: deprecate this column (2017/03/17)
     telefone = models.ManyToManyField(Telefone, default=(1435,))  # a person can have several phone numbers
     email = models.EmailField(blank=True, null=True)
