@@ -24,6 +24,10 @@ class RedacaoAdmin(admin.ModelAdmin):
         # 'data_de_correcao',
         'is_devolvida'
     ]
+    list_editable = [
+        'nota',
+        'is_devolvida',
+    ]
     list_filter = (
         'is_devolvida',
         'tema',

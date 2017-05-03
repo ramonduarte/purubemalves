@@ -1,11 +1,19 @@
 # coding=utf-8
 from django.contrib import admin
-from website import models
+from website import models, views
 
 
 class AlunoAdmin(admin.ModelAdmin):
-    list_display = ['get_nome', 'turma', 'bairro', 'cidade', 'tel', 'data_de_inscricao']
-    list_filter = ('turma',)
+    list_display = [
+        'get_nome',
+        'turma',
+        'get_attendance',
+        'bairro',
+        'cidade',
+        'tel',
+        'data_de_inscricao'
+    ]
+    list_filter = ('turma', 'is_ativo')
     search_fields = ('nome',)
     fieldsets = (
         ('Informações Pessoais', {
@@ -18,12 +26,18 @@ class AlunoAdmin(admin.ModelAdmin):
         }),
         ('Informações Letivas', {
             'fields': (
-                ('turma', 'ano_letivo'),
+                ('turma', 'ano_letivo', 'data_de_inscricao', ),
                 ('lingua_estrangeira', 'curso_pretendido'),
-                ('obs', 'data_de_inscricao'),
+                ('obs', 'is_ativo'),
             ),
         }),
     )
+
+    formfield_overrides = {
+        models.models.ManyToManyField: {
+            'widget': views.autocomplete.ModelSelect2Multiple(url='curso-autocomplete'),
+        }
+    }
 
     class Media:
         js = (
@@ -33,7 +47,7 @@ class AlunoAdmin(admin.ModelAdmin):
 
 
 class VoluntarioAdmin(admin.ModelAdmin):
-    list_display = ['get_nome', 'get_equipe', 'tel', 'is_ativo', 'chegada', ]
+    list_display = ['get_nome', 'get_equipe', 'get_attendance', 'tel', 'is_ativo', 'chegada', ]
     list_filter = ('equipe', 'is_ativo', )
     search_fields = ('nome',)
 
@@ -48,18 +62,21 @@ class VoluntarioAdmin(admin.ModelAdmin):
         }),
         ('Informações Profissionais', {
             'fields': (
-                ('equipe', ),
+                ('equipe', 'chegada', ),
                 ('graduacao', 'graduacao_concluida', ),
                 ('is_ativo', ),
-                ('obs', 'chegada'),
+                ('obs', ),
             ),
         }),
     )
 
     class Media:
         js = (
+            # 'admin/js/huehue.js',
+            # 'http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js',
             # 'django.jQuery',
             'admin/js/cep.js',
+            # 'admin/js/huehue.min.js',
         )
 
 
@@ -69,6 +86,8 @@ class CursoAdmin(admin.ModelAdmin):
         'get_count',
         'uerj_peso_2',
         'uerj_peso_1',
+        'cederj_especifica1',
+        'cederj_especifica2',
         'ufrj_mat_peso',
         'ufrj_lin_peso',
         'ufrj_nat_peso',
@@ -89,19 +108,25 @@ class EquipeAdmin(admin.ModelAdmin):
 
 
 # Library classes
+class EditoraAdmin(admin.ModelAdmin):
+    def get_model_perms(self, request):
+        """
+        Return empty perms dict thus hiding the model from admin index.
+        """
+        return {}
+
+
+class AutorAdmin(admin.ModelAdmin):
+    def get_model_perms(self, request):
+        """
+        Return empty perms dict thus hiding the model from admin index.
+        """
+        return {}
+
+
 class LivroAdmin(admin.ModelAdmin):
     list_display = ['nome', 'editora', 'isbn', 'is_disponivel', 'idioma', 'ano_de_publicacao', 'data_de_aquisicao', ]
     list_filter = ('is_disponivel', 'idioma')
-
-
-# class EditoraAdmin(admin.ModelAdmin):
-#     list_display = ['nome']
-#     list_filter = ('nome',)
-
-#
-# class AutorAdmin(admin.ModelAdmin):
-#     list_display = ['nome', 'sobrenome', ]
-#     # list_filter = ('sobrenome', )
 
 
 class EmprestimoParaAlunoAdmin(admin.ModelAdmin):
@@ -153,7 +178,7 @@ admin.site.register(models.Ementa, EmentaAdmin)
 
 # Library django-admin registering
 admin.site.register(models.Livro, LivroAdmin)
-# admin.site.register(models.Editora, EditoraAdmin)
-# admin.site.register(models.Autor, AutorAdmin)
+admin.site.register(models.Editora, EditoraAdmin)
+admin.site.register(models.Autor, AutorAdmin)
 admin.site.register(models.EmprestimoParaAluno, EmprestimoParaAlunoAdmin)
 admin.site.register(models.EmprestimoParaVoluntario, EmprestimoParaVoluntarioAdmin)

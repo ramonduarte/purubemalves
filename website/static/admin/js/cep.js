@@ -45,6 +45,10 @@ function removeNaN(element) {
     element.value=element.value.replace(/([^0-9])+/g, '');
 }
 
+function removeNaN(element) {
+    element.value=element.value.replace(/([^0-9])+/g, '');
+}
+
 django.jQuery(document).ready(function( ) {
     django.jQuery('#id_cep').blur(function () {
         removeNaN(django.jQuery('#id_cep')[0]);

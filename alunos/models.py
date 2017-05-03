@@ -17,10 +17,13 @@ class Perfil(models.Model):
 
 
 class PerfilDeAluno(Perfil):
-    aluno = models.ForeignKey(wm.Aluno, on_delete=models.CASCADE, verbose_name=u'Aluno')
+    aluno = models.ForeignKey(wm.Aluno, blank=True, null=True, on_delete=models.CASCADE, verbose_name=u'Aluno')
 
     def __unicode__(self):
-        return self.aluno.get_nome()
+        try:
+            return self.aluno.nome
+        except AttributeError:
+            return u'desconhecido'
 
     class Meta:
         managed = True
@@ -29,10 +32,13 @@ class PerfilDeAluno(Perfil):
 
 
 class PerfilDeVoluntario(Perfil):
-    voluntario = models.ForeignKey(wm.Voluntario, on_delete=models.CASCADE, verbose_name=u'Voluntário')
+    voluntario = models.ForeignKey(wm.Voluntario, blank=True, null=True, on_delete=models.CASCADE, verbose_name=u'Voluntário')
 
     def __unicode__(self):
-        return self.voluntario
+        try:
+            return self.voluntario.nome
+        except AttributeError:
+            return u'desconhecido'
 
     class Meta:
         managed = True
@@ -50,6 +56,21 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     try:
         profile = PerfilDeAluno.objects.get(user=instance)
+        profile.save()
+    except:
+        pass
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        PerfilDeVoluntario.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    try:
+        profile = PerfilDeVoluntario.objects.get(user=instance)
         profile.save()
     except:
         pass

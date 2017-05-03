@@ -42,6 +42,8 @@ class Curso(models.Model):
     ufrj_nat_peso = models.IntegerField(blank=True, null=True, verbose_name='UFRJ Peso Natureza')
     ufrj_hum_peso = models.IntegerField(blank=True, null=True, verbose_name='UFRJ Peso Humanidades')
     ufrj_red_peso = models.IntegerField(blank=True, null=True, verbose_name='UFRJ Peso Redação')
+    cederj_especifica1 = models.IntegerField(blank=True, null=True, verbose_name='CEDERJ Específica 1')
+    cederj_especifica2 = models.IntegerField(blank=True, null=True, verbose_name='CEDERJ Específica 2')
 
     def __unicode__(self):
         return '%s' % (self.nome,)
@@ -77,6 +79,7 @@ class Pessoa(models.Model):
     twitter = models.CharField(max_length=longfield, blank=True, null=True)
     site = models.CharField(max_length=longfield, blank=True, null=True)
     blog = models.CharField(max_length=longfield, blank=True, null=True)
+    is_ativo = models.BooleanField(default=True, verbose_name='Ativo')
 
     def __unicode__(self):
         return '%s' % (self.nome,)
@@ -112,10 +115,10 @@ class Aluno(Pessoa):
     ), default=u'A')
     lingua_estrangeira = models.CharField(default=u'Espanhol', max_length=supershortfield,
                                           verbose_name='Língua Estrangeira', choices=[
-                                              (u'Espanhol', u'Espanhol'),
-                                              (u'Inglês', u'Inglês'),
-                                              (u'Francês', u'Francês (obs: não possuímos professor no momento)'),
-                                            ])
+            (u'Espanhol', u'Espanhol'),
+            (u'Inglês', u'Inglês'),
+            (u'Francês', u'Francês (obs: não possuímos professor no momento)'),
+        ])
     curso_pretendido = models.ManyToManyField(Curso, blank=True, verbose_name='Curso Pretendido')
     obs = models.CharField(max_length=200, blank=True, null=True, verbose_name='Observações')
     ano_letivo = models.IntegerField(default=2017, verbose_name='Ano letivo')
@@ -123,6 +126,14 @@ class Aluno(Pessoa):
 
     def __unicode__(self):
         return '%s' % (self.nome,)
+
+    def get_attendance(self):
+        import controle_de_frequencia.models
+        return '%2i%%' % (
+            100.0 * controle_de_frequencia.models.ListaDePresencaDeAlunos.objects.filter(aluno=self.id).count()
+            / controle_de_frequencia.models.ListaDePresencaDeAlunos.objects.all().count(),
+        )
+    get_attendance.short_description = u'Frequência'
 
     class Meta:
         managed = True
@@ -138,11 +149,19 @@ class Voluntario(Pessoa):
     graduacao_concluida = models.BooleanField(default=False, verbose_name='Concluída')
     obs = models.CharField(max_length=superlongfield, blank=True, null=True, verbose_name='Observações')
     chegada = models.DateField(blank=True, null=True)
-    is_ativo = models.BooleanField(default=True, verbose_name='Ativo')
 
     def get_equipe(self):
         return [i for i in self.equipe.all()]
     get_equipe.short_description = u'Equipes'
+
+    def get_attendance(self):
+        import controle_de_frequencia.models
+        return '%2i%%' % (
+            100.0 *
+            controle_de_frequencia.models.ListaDePresencaDeVoluntarios.objects.filter(voluntario=self.id).count()
+            / controle_de_frequencia.models.ListaDePresencaDeVoluntarios.objects.all().count(),
+        )
+    get_attendance.short_description = u'Frequência'
 
     def __unicode__(self):
         return '%s' % (self.nome,)

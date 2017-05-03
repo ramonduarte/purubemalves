@@ -21,12 +21,14 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Application definition
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    # 'admin_tools',
+    # 'admin_tools.theming',
+    # 'admin_tools.menu',
+    # 'admin_tools.dashboard',
+
+    # django-autocomplete-light (2017/03/29)
+    'dal',
+    'dal_select2',
 
     # Social OAuth logins (2017/03/10)
     'social_django',
@@ -62,6 +64,14 @@ INSTALLED_APPS = (
 
     # Static content distribution (2017/03/10)
     'storages',
+
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,6 +100,9 @@ TEMPLATES = [
         ],
         'APP_DIRS': True,
         'OPTIONS': {
+            # 'loaders': [
+            #     'admin_tools.template_loaders.Loader',
+            # ],
             'libraries': {
                 # Templete tools for dictionaries (2017/03/15)
                 'dict_filters': 'issues.templatetags.dict_filters',
@@ -178,6 +191,10 @@ ENCRYPT_ROOT = os.path.join(STATIC_ROOT, '.well-known')
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, '../static'),
 )
+
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# )
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/

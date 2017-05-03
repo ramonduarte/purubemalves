@@ -2,9 +2,11 @@ from django.conf import settings
 from django.conf.urls import include, url, static
 from django.contrib import admin
 import controle_de_frequencia
-import website.views
+from website import views as wv
+import website.models
 import home.views
 import issues.views
+# import admin_tools.urls
 
 
 admin.autodiscover()  # DON'T TOUCH THIS LINE
@@ -16,6 +18,8 @@ urlpatterns = [
     # Examples:
     # url(r'^$', 'transparency.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+
+    # url(r'^admin_tools/', include('admin_tools.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^updatedb', website.views.updatedb, name='updatedb'),
@@ -42,4 +46,14 @@ urlpatterns = [
     url(r'^reports/', include('reports.urls')),
 
     url(r'^protocolo$', issues.views.protocolo, name='protocolo'),
+
+    # Autocomplete views
+    url(
+        r'^curso-autocomplete/$',
+        wv.CursoAutocomplete.as_view(create_field='nome'),
+        name='curso-autocomplete',
+    ),
+    # url(r'^equipe-autocomplete/$', website.views.wm.EquipeAutocomplete.as_view(), name='equipe-autocomplete'),
+    # url(r'^autor-autocomplete/$', website.views.wm.AutorAutocomplete.as_view(), name='autor-autocomplete'),
+
 ] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)
