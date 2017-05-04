@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.contrib import admin
+from django.forms import ModelForm
 from website import models, views
 
 
@@ -46,6 +47,16 @@ class AlunoAdmin(admin.ModelAdmin):
         )
 
 
+class VoluntarioAdminForm(ModelForm):
+    class Meta:
+        model = models.Voluntario
+        exclude = []
+        widgets = {
+            'graduacao': views.autocomplete.ModelSelect2Multiple(url='curso-autocomplete'),
+            'equipe': views.autocomplete.ModelSelect2Multiple(url='equipe-autocomplete'),
+        }
+
+
 class VoluntarioAdmin(admin.ModelAdmin):
     list_display = ['get_nome', 'get_equipe', 'get_attendance', 'tel', 'is_ativo', 'chegada', ]
     list_filter = ('equipe', 'is_ativo', )
@@ -70,13 +81,12 @@ class VoluntarioAdmin(admin.ModelAdmin):
         }),
     )
 
+    form = VoluntarioAdminForm
+
     class Media:
         js = (
-            # 'admin/js/huehue.js',
-            # 'http://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js',
             # 'django.jQuery',
             'admin/js/cep.js',
-            # 'admin/js/huehue.min.js',
         )
 
 

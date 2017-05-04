@@ -53,7 +53,11 @@ urlpatterns = [
         wv.CursoAutocomplete.as_view(create_field='nome'),
         name='curso-autocomplete',
     ),
-    # url(r'^equipe-autocomplete/$', website.views.wm.EquipeAutocomplete.as_view(), name='equipe-autocomplete'),
+    url(
+        r'^equipe-autocomplete/$',
+        wv.EquipeAutocomplete.as_view(create_field='nome'),
+        name='equipe-autocomplete'
+    ),
     # url(r'^autor-autocomplete/$', website.views.wm.AutorAutocomplete.as_view(), name='autor-autocomplete'),
 
 ] + static.static(settings.ENCRYPT_URL, document_root=settings.ENCRYPT_ROOT)
