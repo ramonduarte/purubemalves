@@ -1,18 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from website.models import Aluno, Voluntario
 from controle_de_frequencia import models as cf
-from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home(request):
     return render_to_response('controle_de_frequencia/home.html')
 
 
+@login_required
 def alunos(request):
-    turmaa = [(i.nome, i.id) for i in Aluno.objects.all() if i.turma == u'A']
-    turmab = [(i.nome, i.id) for i in Aluno.objects.all() if i.turma == u'B']
-    turmac = [(i.nome, i.id) for i in Aluno.objects.all() if i.turma == u'C']
-    turmad = [(i.nome, i.id) for i in Aluno.objects.all() if i.turma == u'D']
+    turmaa = [(i.nome, i.id) for i in Aluno.objects.filter(is_ativo=True).all() if i.turma == u'A']
+    turmab = [(i.nome, i.id) for i in Aluno.objects.filter(is_ativo=True).all() if i.turma == u'B']
+    turmac = [(i.nome, i.id) for i in Aluno.objects.filter(is_ativo=True).all() if i.turma == u'C']
+    turmad = [(i.nome, i.id) for i in Aluno.objects.filter(is_ativo=True).all() if i.turma == u'D']
 
     html_variables = {
         u'alunos': u'1',
@@ -25,8 +27,9 @@ def alunos(request):
     return render(request, 'controle_de_frequencia/alunos.html', html_variables)
 
 
+@login_required
 def voluntarios(request):
-    listof_voluntarios = [(i.nome, i.id) for i in Voluntario.objects.all() if i.is_ativo]
+    listof_voluntarios = [(i.nome, i.id) for i in Voluntario.objects.filter(is_ativo=True).all()]
     html_variables = {
         u'alunos': u'',
         u'voluntarios': u'1',
@@ -35,6 +38,7 @@ def voluntarios(request):
     return render(request, 'controle_de_frequencia/voluntarios.html', html_variables)
 
 
+@login_required
 def post(request):
     if request.method == 'POST':
         if u'alunos' in request.POST:

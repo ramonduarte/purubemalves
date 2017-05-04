@@ -35,3 +35,5 @@ class PedidoDeInscricao(wm.Pessoa):
     class Meta:
         managed = True
         ordering = ('nome',)
+        verbose_name = u'Pedido de Inscrição'
+        verbose_name_plural = u'Pedidos de Inscrição'
