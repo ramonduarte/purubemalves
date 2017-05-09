@@ -223,10 +223,10 @@ class Livro(models.Model):
     data_de_aquisicao = models.DateField(default=date.today, verbose_name='Data de Aquisição')
     is_disponivel = models.BooleanField(default=True, verbose_name='Disponível')
     idioma = models.CharField(max_length=shortfield, default=u'Português', choices=(
+        (u'Português', u'Português'),
         (u'Espanhol', u'Espanhol'),
         (u'Francês', u'Francês'),
         (u'Inglês', u'Inglês'),
-        (u'Português', u'Português'),
         (u'Outro', u'Outro'),
     ))
 
