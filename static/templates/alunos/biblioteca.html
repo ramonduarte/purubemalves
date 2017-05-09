@@ -1,0 +1,59 @@
+{% extends "alunos/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load dict_filters %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+
+    <h2>Biblioteca</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" content="Livros">
+
+    <thead>
+        <tr>
+            <th class="col-md-4 col-xs-12">Livro</th>
+            <th class="col-md-2 col-xs-6">Autor</th>
+            <th class="col-md-2 col-xs-6">Idioma</th>
+{#            <th class="col-md-1 col-xs-6">Devolução</th>#}
+            <th class="col-md-1 col-xs-6">Status</th>
+        </tr>
+    </thead>
+
+    {% for l in livros %}
+    <tr>
+        <td class="col-md-4 col-xs-12">{{ l.nome }}</td>
+{#        <td class="col-md-3 col-xs-12">{% for c in r.get_corretor %} <p>{{ c }}</p>{% endfor %}</td>#}
+        <td class="col-md-2 col-xs-6">
+            {% for i in l.get_autores_as_unicode %}
+            {{ i }},
+            {% endfor %}
+            </td>
+        <td class="col-md-2 col-xs-6">{{ l.idioma }}</td>
+{#        <td class="col-md-1 col-xs-6">{{ r.data_de_devolucao }}</td>#}
+{#        <td>{{ r.competencia1 }}</td>#}
+{#        <td>{{ r.competencia2 }}</td>#}
+{#        <td>{{ r.competencia3 }}</td>#}
+{#        <td>{{ r.competencia4 }}</td>#}
+{#        <td>{{ r.competencia5 }}</td>#}
+        <td class="col-md-1 col-xs-6">
+            {% if l.is_disponivel %}
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {% endif %}
+            {% if not l.is_disponivel %}
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+            {% endif %}
+        </td>
+        <tr>
+
+    {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

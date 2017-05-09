@@ -17,9 +17,11 @@ urlpatterns = [
     # Social OAuth logins
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
-    url(r'^home/&', views.home, name='home'),
+    url(r'home', views.home, name='home'),
     url(r'isencao', views.isencao, name='isencao'),
     url(r'redacao', views.redacao, name='redacao'),
+    url(r'emprestimos', views.emprestimos, name='emprestimos'),
+    url(r'biblioteca', views.biblioteca, name='biblioteca'),
     url(r'^alunos/login/$', views.redirect_to_home, name='redirect_to_home'),
     url(r'$^', views.home, name='home'),
 

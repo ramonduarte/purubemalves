@@ -9,8 +9,38 @@
 
 {% block content %}
     <h2>Página Inicial</h2>
-    <p>Olá, {{ name }}!</p>
+    <p>Olá, {{ name }}!</p><br><br>
 
-    <p><a href="isencao.html">Ver Pedido de Isenção</a></p><br>
-    <p><a href="redacao.html">Ver Redações</a></p><br>
+    <div class="row">
+        <div class="col-lg-4">
+            <a class="btn btn-primary" href="isencao.html" role="button" style="min-width:180px">
+                <i class="fa fa-money" aria-hidden="true"></i>
+                &nbsp;Pedido de Isenção
+            </a>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-lg-4">
+            <a class="btn btn-primary" href="redacao.html" role="button" style="min-width:180px">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                &nbsp;Minhas Redações
+            </a>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-lg-4">
+            <a class="btn btn-primary" href="emprestimos.html" role="button" style="min-width:180px">
+                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                &nbsp;Meus Empréstimos
+            </a>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-lg-4">
+            <a class="btn btn-primary" href="biblioteca.html" role="button" style="min-width:180px">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                &nbsp;Biblioteca do PURA
+            </a>
+        </div>
+    </div><br>
 {% endblock %}

@@ -42,8 +42,8 @@ class Curso(models.Model):
     ufrj_nat_peso = models.IntegerField(blank=True, null=True, verbose_name='UFRJ Peso Natureza')
     ufrj_hum_peso = models.IntegerField(blank=True, null=True, verbose_name='UFRJ Peso Humanidades')
     ufrj_red_peso = models.IntegerField(blank=True, null=True, verbose_name='UFRJ Peso Redação')
-    cederj_especifica1 = models.IntegerField(blank=True, null=True, verbose_name='CEDERJ Específica 1')
-    cederj_especifica2 = models.IntegerField(blank=True, null=True, verbose_name='CEDERJ Específica 2')
+    cederj_especifica1 = models.CharField(max_length=shortfield, blank=True, null=True, verbose_name='CEDERJ Específica 1')
+    cederj_especifica2 = models.CharField(max_length=shortfield, blank=True, null=True, verbose_name='CEDERJ Específica 2')
 
     def __unicode__(self):
         return '%s' % (self.nome,)
@@ -236,12 +236,20 @@ class Livro(models.Model):
     def giveback(self):
         self.is_disponivel = True
 
+    def get_autores(self):
+        return [i for i in self.autor.all()]
+    get_autores.short_description = u'Autores'
+
+    def get_autores_as_unicode(self):
+        return [i.get_nome() for i in self.autor.all()]
+    get_autores_as_unicode.short_description = u'Autores'
+
     def get_editora(self):
         return Editora.objects.get(pk=self.editora_id).nome
-    get_editora.short_description = 'Editora'
+    get_editora.short_description = u'Editora'
 
     def __unicode__(self):
-        return self.nome
+        return '%s (%s)' % (self.nome, self.isbn)
 
     class Meta:
         ordering = ['nome']
@@ -269,6 +277,9 @@ class Autor(models.Model):
     """
     nome = models.CharField(max_length=longfield)
     sobrenome = models.CharField(max_length=longfield)
+
+    def get_nome(self):
+        return '%s %s' % (self.nome, self.sobrenome)
 
     def __unicode__(self):
         return '%s %s' % (self.nome, self.sobrenome)
